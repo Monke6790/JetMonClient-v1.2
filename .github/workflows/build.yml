@@ -1,0 +1,28 @@
+name: build-from-zip
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ekstrak zip
+        run: unzip -q ClickGuiMod-26.1.2.zip
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.5.1
+      - name: Build
+        run: gradle build
+        working-directory: ClickGuiMod-26.1.2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clickgui-mod-26.1.2
+          path: |
+            ClickGuiMod-26.1.2/build/libs/*.jar
+            !ClickGuiMod-26.1.2/build/libs/*-sources.jar
