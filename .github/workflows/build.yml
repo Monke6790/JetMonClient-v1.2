@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Ekstrak zip
+      - name: Extract zip
         run: unzip -q ClickGuiMod-26.1.2.zip
       - uses: actions/setup-java@v4
         with:
